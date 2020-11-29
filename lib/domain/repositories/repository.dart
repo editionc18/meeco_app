@@ -1,7 +1,6 @@
 import 'package:meeco_app/data/models/response.dart';
 
 import 'package:meeco_app/domain/entities/doc_list.dart';
-import 'package:meeco_app/domain/entities/doc_list_item.dart';
 import 'package:meeco_app/domain/entities/document.dart';
 
 abstract class Repository {
