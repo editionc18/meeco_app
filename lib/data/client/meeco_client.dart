@@ -6,12 +6,15 @@ class MeecoClient {
   String _sessionId;
   String _baseUrl = 'https://meeco.kr';
 
-  MeecoClient();
+  String autologin;
+
+  MeecoClient({this.autologin});
 
   Future<Response> get(String query, {String csrf}) async {
     final http.Response response = await http.get('$_baseUrl$query', headers: {
       if (csrf != null) 'x-csrf-token': '$csrf',
-      if (_sessionId != null) 'cookie': 'PHPSESSID=$_sessionId',
+      if (_sessionId != null)
+        'cookie': 'PHPSESSID=$_sessionId' + this.autologin ?? '',
     });
 
     final Map<String, String> cookies =
@@ -30,16 +33,19 @@ class MeecoClient {
     final http.Response response =
         await http.post('$_baseUrl$query', body: data, headers: {
       if (csrf != null) 'x-csrf-token': '$csrf',
-      if (_sessionId != null) 'cookie': 'PHPSESSID=$_sessionId',
+      if (_sessionId != null)
+        'cookie': 'PHPSESSID=$_sessionId' + this.autologin ?? '',
     });
 
     final cookies = _parseCookies(response.headers['set-cookie']);
 
     if (cookies['PHPSESSID'] != null) _sessionId = cookies['PHPSESSID'];
+    if (cookies['rx_autologin'] != null)
+      this.autologin = cookies['rx_autologin'];
 
     return Response(
       response.body,
-      autologin: cookies['rx_autologin'] ?? null,
+      autologin: this.autologin ?? null,
     );
   }
 
