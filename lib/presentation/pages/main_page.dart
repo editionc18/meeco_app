@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meeco_app/presentation/bloc/tabs/tabs.dart';
 import 'package:meeco_app/presentation/bloc/tabs/tabs_event.dart';
 import 'package:meeco_app/presentation/bloc/tabs/tabs_bloc.dart';
+import 'package:meeco_app/presentation/pages/board_page.dart';
 
 import 'package:meeco_app/presentation/widgets/main_box.dart';
 
@@ -30,7 +31,7 @@ class _MainPageState extends State<MainPage> {
           centerTitle: true,
         ),
         body: activeTab == Tabs.boards
-            ? MainBox(title: 'IT+')
+            ? BoardPage()
             : activeTab == Tabs.notis
                 ? MainBox(title: 'dddd')
                 : activeTab == Tabs.userInfo
