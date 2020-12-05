@@ -12,24 +12,16 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          '미니기기 코리아',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.account_circle,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-        ],
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -96,6 +88,42 @@ class _MainPageState extends State<MainPage> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedIconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        unselectedIconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.developer_board,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.notifications,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_circle,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.menu,
+            ),
+            label: '',
+          ),
+        ],
       ),
     );
   }
