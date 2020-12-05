@@ -20,5 +20,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     var response = await meecoClient.get(query);
     var document = parse(response.body);
     var list = document.querySelector('#bBd > div.bBox > div');
+    // return list.text;
   }
 }
