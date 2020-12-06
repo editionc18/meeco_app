@@ -5,6 +5,7 @@ import 'package:meeco_app/presentation/bloc/tabs/tabs.dart';
 import 'package:meeco_app/presentation/bloc/tabs/tabs_event.dart';
 import 'package:meeco_app/presentation/bloc/tabs/tabs_bloc.dart';
 import 'package:meeco_app/presentation/pages/board_page.dart';
+import 'package:meeco_app/presentation/pages/noti_page.dart';
 
 import 'package:meeco_app/presentation/widgets/main_box.dart';
 
@@ -33,7 +34,7 @@ class _MainPageState extends State<MainPage> {
         body: activeTab == Tabs.boards
             ? BoardPage()
             : activeTab == Tabs.notis
-                ? MainBox(title: 'dddd')
+                ? NotiPage()
                 : activeTab == Tabs.userInfo
                     ? MainBox(title: 'ddddddd')
                     : MainBox(title: 'title'),
