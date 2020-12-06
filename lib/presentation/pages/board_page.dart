@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meeco_app/presentation/pages/doc_page.dart';
 import 'package:meeco_app/presentation/widgets/main_box.dart';
 
 class BoardPage extends StatefulWidget {
@@ -12,12 +13,22 @@ class _BoardPageState extends State<BoardPage> {
     return ListView(
       shrinkWrap: true,
       children: [
-        MainBox(
-          title: 'IT+',
-          colors: [
-            Color(0xff647cab),
-            Color(0xff647cab),
-          ],
+        GestureDetector(
+          child: MainBox(
+            title: 'IT+',
+            colors: [
+              Color(0xff647cab),
+              Color(0xff647cab),
+            ],
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DocPage(),
+              ),
+            );
+          },
         ),
         MainBox(
           title: '자유+',
