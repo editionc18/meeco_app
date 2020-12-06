@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meeco_app/presentation/widgets/doc_list_item_widget.dart';
 
 class DocListPage extends StatefulWidget {
   @override
@@ -23,7 +24,10 @@ class _DocListPageState extends State<DocListPage> {
           ),
         ],
       ),
-      body: ListView(),
+      body: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context, i) => DocListItemWidget(),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.arrow_upward,
