@@ -20,11 +20,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<DocListModel> getDocList(String query) async {
     final Response response = await meecoClient.get(query);
     final document = parse(response.body);
-    var list = document.querySelector('#bBd > div.bBox > div');
+    var list =
+        document.querySelector('#bBd > div.bBox > div').text ?? 'didididi';
     return DocListModel(name: 'IT+', docListItems: [
       DocListItemModel(
         query: '/ITplus/202020202',
-        title: '${list.text}',
+        title: '${list}',
         author: '김따란',
         view: 100,
         comment: 10,

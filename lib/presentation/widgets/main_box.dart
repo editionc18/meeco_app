@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meeco_app/presentation/bloc/doc_list/doc_list_bloc.dart';
+import 'package:meeco_app/presentation/bloc/doc_list/doc_list_events.dart';
+import 'package:meeco_app/presentation/bloc/doc_list/doc_list_states.dart';
 
 class MainBox extends StatefulWidget {
   final String title;
@@ -40,10 +44,33 @@ class _MainBoxState extends State<MainBox> {
               ),
             ),
           ),
-          MainBoxItem(title: '제목'),
-          MainBoxItem(title: '제목제목'),
-          MainBoxItem(title: '미코미코미'),
-          MainBoxItem(title: '제목제목제목'),
+          BlocBuilder<DocListBloc, DocListState>(
+            builder: (context, state) {
+              if (state is DocListInitial) {
+                return IconButton(
+                    icon: Icon(Icons.touch_app),
+                    onPressed: () {
+                      BlocProvider.of<DocListBloc>(context)
+                          .add(GetMoreList(name: 'ITplus'));
+                    });
+              }
+              if (state is DocListFetchSuccess) {
+                return Column(
+                  children: [
+                    IconButton(
+                        icon: Icon(Icons.touch_app),
+                        onPressed: () {
+                          BlocProvider.of<DocListBloc>(context)
+                              .add(GetMoreList(name: 'ITplus'));
+                        }),
+                    MainBoxItem(title: state.docList.docListItems[0].title),
+                    MainBoxItem(title: 'dd'),
+                    MainBoxItem(title: 'ddd'),
+                  ],
+                );
+              }
+            },
+          ),
         ],
       ),
     );
