@@ -13,8 +13,10 @@ class MeecoClient {
   Future<Response> get(String query, {String csrf}) async {
     final http.Response response = await http.get('$_baseUrl$query', headers: {
       if (csrf != null) 'x-csrf-token': '$csrf',
-      if (_sessionId != null)
-        'cookie': 'PHPSESSID=$_sessionId' + this.autologin ?? '',
+      'cookie': [
+        if (_sessionId != null) 'PHPSESSID=$_sessionId',
+        this.autologin ?? ''
+      ].join(';'),
     });
 
     final Map<String, String> cookies =
@@ -33,8 +35,10 @@ class MeecoClient {
     final http.Response response =
         await http.post('$_baseUrl$query', body: data, headers: {
       if (csrf != null) 'x-csrf-token': '$csrf',
-      if (_sessionId != null)
-        'cookie': 'PHPSESSID=$_sessionId' + this.autologin ?? '',
+      'cookie': [
+        if (_sessionId != null) 'PHPSESSID=$_sessionId',
+        this.autologin ?? ''
+      ].join(';'),
     });
 
     final cookies = _parseCookies(response.headers['set-cookie']);
