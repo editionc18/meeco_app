@@ -65,7 +65,7 @@ class _MainBoxState extends State<MainBox> {
                                   .add(GetMoreList(name: 'ITplus'));
                             }),
                         ...state.docList.docListItems
-                            .map((e) => MainBoxItem(title: e.vote.toString()))
+                            .map((e) => MainBoxItem(title: e.title))
                             .toList(),
                       ],
                     );
