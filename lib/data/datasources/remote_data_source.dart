@@ -18,36 +18,38 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<DocListModel> getDocList(String query) async {
-    final Response response = await meecoClient.get(query);
+    final Response response =
+        await meecoClient.get(query) ?? Response('<hello>what</hello>');
     final document = parse(response.body);
-    var list =
-        document.querySelector('#bBd > div.bBox > div').text ?? 'didididi';
-    return DocListModel(name: 'IT+', docListItems: [
-      DocListItemModel(
-        query: '/ITplus/202020202',
-        title: '${list}',
-        author: '김따란',
-        view: 100,
-        comment: 10,
-        vote: 1,
-      ),
-      DocListItemModel(
-        query: '/ITplus/202020202',
-        title: '제목 테스트',
-        author: '김따란',
-        view: 100,
-        comment: 10,
-        vote: 1,
-      ),
-      DocListItemModel(
-        query: '/ITplus/202020202',
-        title: '제목 테스트',
-        author: '김따란',
-        view: 100,
-        comment: 10,
-        vote: 1,
-      ),
-    ]);
+    // document
+    //     .querySelector(
+    //         'html > body > section.cCtn > div.wrapper > section.cCon > div.bBd > div.bBox > div.ldn-wrap > table.ldn > tbody > tr')
+    //     ?.children
+    //     ?.forEach((element) {
+    //   print(
+    //       'item is $element, class is ${element?.className}, text is ${element?.text?.trim()}');
+    // });
+    var list = document.querySelectorAll('table.ldn > tbody > tr');
+    var titles = list.map((e) {
+      return e.querySelector('td.title > a > span').text.trim();
+    }).toList();
+    return DocListModel(
+      name: 'IT+',
+      docListItems: list.map((e) {
+        var comment = e.querySelector('td.title > a.num')?.text;
+        var data = e.querySelectorAll('td.num');
+        return DocListItemModel(
+          query:
+              e.querySelector('td.title > a > span').parent.attributes['href'],
+          title: e.querySelector('td.title > a > span').text.trim(),
+          author: e.querySelector('td.author > a').text,
+          view: int.parse(data[3].text),
+          comment: int.parse(
+              comment?.trim()?.substring(1, comment.trim().length - 1) ?? '0'),
+          vote: int.parse(data[2].text),
+        );
+      }).toList(),
+    );
     // return list.text;
   }
 }
