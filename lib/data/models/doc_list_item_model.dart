@@ -8,6 +8,7 @@ class DocListItemModel extends DocListItem {
     int view,
     int comment,
     int vote,
+    bool isNotice,
   }) : super(
           query: query,
           title: title,
@@ -15,5 +16,6 @@ class DocListItemModel extends DocListItem {
           view: view,
           comment: comment,
           vote: vote,
+          isNotice: isNotice,
         );
 }

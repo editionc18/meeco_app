@@ -30,24 +30,24 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     //       'item is $element, class is ${element?.className}, text is ${element?.text?.trim()}');
     // });
     var list = document.querySelectorAll('table.ldn > tbody > tr');
-    var titles = list.map((e) {
-      return e.querySelector('td.title > a > span').text.trim();
-    }).toList();
     return DocListModel(
       name: 'IT+',
       docListItems: list.map((e) {
         var comment = e.querySelector('td.title > a.num')?.text;
         var data = e.querySelectorAll('td.num');
         return DocListItemModel(
-          query:
-              e.querySelector('td.title > a > span').parent.attributes['href'],
-          title: e.querySelector('td.title > a > span').text.trim(),
-          author: e.querySelector('td.author > a').text,
-          view: int.parse(data[3].text),
-          comment: int.parse(
-              comment?.trim()?.substring(1, comment.trim().length - 1) ?? '0'),
-          vote: int.parse(data[2].text),
-        );
+            query: e
+                .querySelector('td.title > a > span')
+                .parent
+                .attributes['href'],
+            title: e.querySelector('td.title > a > span').text.trim(),
+            author: e.querySelector('td.author > a').text,
+            view: int.parse(data[3].text),
+            comment: int.parse(
+                comment?.trim()?.substring(1, comment.trim().length - 1) ??
+                    '0'),
+            vote: int.parse(data[2].text),
+            isNotice: e.className == 'notice');
       }).toList(),
     );
     // return list.text;

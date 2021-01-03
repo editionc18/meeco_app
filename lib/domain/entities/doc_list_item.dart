@@ -10,13 +10,17 @@ class DocListItem extends Equatable {
   final int comment;
   final int vote;
 
-  DocListItem(
-      {this.query,
-      this.title,
-      this.author,
-      this.view,
-      this.comment,
-      this.vote});
+  final bool isNotice;
+
+  DocListItem({
+    this.query,
+    this.title,
+    this.author,
+    this.view,
+    this.comment,
+    this.vote,
+    this.isNotice,
+  });
 
   @override
   List<Object> get props => [
