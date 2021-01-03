@@ -46,7 +46,7 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
             Container(
-              height: 260,
+              height: 500,
               child: PageView(
                 controller: PageController(
                   viewportFraction: 0.8,

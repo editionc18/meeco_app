@@ -11,7 +11,7 @@ class DocListBloc extends Bloc<DocListEvent, DocListState> {
   @override
   Stream<DocListState> mapEventToState(DocListEvent event) async* {
     if (event is GetMoreList) {
-      var docList = await getDocList.repository.getDocList('/');
+      var docList = await getDocList.repository.getDocList('/ITplus');
       yield DocListFetchSuccess(
         name: docList.name,
         docList: docList,

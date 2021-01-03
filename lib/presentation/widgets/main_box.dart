@@ -63,9 +63,9 @@ class _MainBoxState extends State<MainBox> {
                           BlocProvider.of<DocListBloc>(context)
                               .add(GetMoreList(name: 'ITplus'));
                         }),
-                    MainBoxItem(title: state.docList.docListItems[0].title),
-                    MainBoxItem(title: 'dd'),
-                    MainBoxItem(title: 'ddd'),
+                    ...state.docList.docListItems
+                        .map((e) => MainBoxItem(title: e.vote.toString()))
+                        .toList(),
                   ],
                 );
               }
