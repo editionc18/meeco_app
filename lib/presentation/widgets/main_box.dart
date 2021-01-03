@@ -65,7 +65,8 @@ class _MainBoxState extends State<MainBox> {
                                   .add(GetMoreList(name: 'ITplus'));
                             }),
                         ...state.docList.docListItems
-                            .map((e) => MainBoxItem(title: e.title))
+                            .map((e) =>
+                                MainBoxItem(title: e.isNotice ? '공지' : e.title))
                             .toList(),
                       ],
                     );
