@@ -12,9 +12,7 @@ class RepositoryImpl implements Repository {
   RepositoryImpl({@required this.remote});
 
   @override
-  Future<Document> getDoc(String query) {
-    // TODO: implement getDoc
-  }
+  Future<Document> getDoc(String query) async => await remote.getDoc(query);
 
   @override
   Future<DocList> getDocList(String query) async =>
