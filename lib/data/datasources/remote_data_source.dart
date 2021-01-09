@@ -1,5 +1,7 @@
 import 'package:html/parser.dart' show parse;
+import 'package:meeco_app/data/models/comment_model.dart';
 import 'package:meeco_app/data/models/doc_list_item_model.dart';
+import 'package:meeco_app/data/models/document_model.dart';
 
 import 'package:meeco_app/data/models/response.dart';
 
@@ -8,6 +10,7 @@ import 'package:meeco_app/data/models/doc_list_model.dart';
 
 abstract class RemoteDataSource {
   Future<DocListModel> getDocList(String query);
+  Future<DocumentModel> getDoc(String query);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -51,5 +54,33 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       }).toList(),
     );
     // return list.text;
+  }
+
+  @override
+  Future<DocumentModel> getDoc(String query) async {
+    final Response response = await meecoClient.get(query);
+    final document = parse(response.body).querySelector(
+        'html > body > section.cCtn > div.wrapper > section.cCon > div.bBd > article.bAtc');
+
+    return DocumentModel(
+      title: document.querySelector('header.atc-hd > h1.atc-title > a').text,
+      nickname: document
+          .querySelector('header.atc-hd > ul.ldd-title-under > li > a')
+          .text,
+      timestamp: document
+          .querySelector('header.atc-hd > ul.ldd-title-under > li.num')
+          .text,
+      view: int.parse(document
+          .querySelector('header.atc-hd > ul.ldd-title-under > li > span.num')
+          .text),
+      content: document.querySelector('div.atc-wrap > div.xe_content').text,
+      vote: int.parse(document
+          .querySelector(
+              'div.atc-wrap > div.atc-vote > div.atc-vote-bts > a > span.num')
+          .text),
+      sign: document
+          .querySelector('div.atc-wrap > div.atc-sign > div.atc-sign-body')
+          .toString(),
+    );
   }
 }
