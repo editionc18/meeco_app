@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meeco_app/domain/usecases/get_doc.dart';
+import 'package:meeco_app/presentation/bloc/doc/doc_bloc.dart';
 
 import 'package:meeco_app/presentation/pages/main_page.dart';
 import 'package:meeco_app/presentation/bloc/tabs/tabs_bloc.dart';
@@ -23,6 +25,11 @@ void main() {
       ),
       BlocProvider<TabsBloc>(
         create: (context) => TabsBloc(),
+      ),
+      BlocProvider<DocBloc>(
+        create: (context) => DocBloc(
+          getDoc: GetDoc(_repository),
+        ),
       ),
     ],
     child: MyApp(),
